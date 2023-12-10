@@ -4,10 +4,16 @@ import {render, screen, fireEvent} from '@testing-library/react-native'
 // Import the component to test
 import App from "../App"
 
-describe("App.js Tests", () => { 
-   it("Description of the test case should go here", () => {
-        // programatically generate the component
-        render(<App/>)
-        // do something with the component using the "screen" variable
-   })
-})
+describe('App.js Tests', () => {
+   it('on initial load, message shows that there are no tasks', () => {
+     const { getByText } = render(<App />);
+     expect(getByText('Hurray, No tasks to do !')).toBeTruthy();
+   });
+ 
+   it('after adding a task, the flatlist is updated', () => {
+     const { getByText, getByPlaceholderText } = render(<App />);
+     fireEvent.changeText(getByPlaceholderText('Enter Task'), 'New Task');
+     fireEvent.press(getByText('Add Task'));
+     expect(getByText('New Task')).toBeTruthy();
+   });
+ });

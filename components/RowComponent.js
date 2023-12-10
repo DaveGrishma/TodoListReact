@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Button, Switch } from "react-native";
 import useCustomHook from "../useCustomHook";
 
 const RowComponent = (props) => {
-    const { todoCompletionValue, toggle } = useCustomHook(false);
+    const { todoCompletionValue, toggle } = useCustomHook(props.rowNumber.isCompleted);
 
     const btnPressed = () => {
         // call the hook's function
@@ -27,7 +27,7 @@ const RowComponent = (props) => {
                         {todoCompletionValue ? "Finished" : "Pending"}
                     </Text>
                 </View>
-                <Switch value={todoCompletionValue} onChange={btnPressed} />
+                <Switch value={todoCompletionValue} onChange={btnPressed} testID="todoSwitch" />
             </View>
         </View>
     );
